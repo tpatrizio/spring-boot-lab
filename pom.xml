@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.2.6.RELEASE</version>
+    <relativePath /> <!-- lookup parent from repository -->
+  </parent>
+
+  <groupId>com.example</groupId>
+  <artifactId>demo</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>demo</name>
+  <description>Demo project for Spring Boot</description>
+
+  <properties>
+    <java.version>1.8</java.version>
+
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <maven-failsafe-plugin.version>2.22.0</maven-failsafe-plugin.version>
+    <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
+
+    <!-- Project ad API Documentation -->
+    <asciidoctor.maven.plugin.version>2.0.0-RC.1</asciidoctor.maven.plugin.version>
+    <asciidoctorj.diagram.version>2.0.1</asciidoctorj.diagram.version>
+    <spring-restdocs-asciidoctor.version>2.0.4.RELEASE</spring-restdocs-asciidoctor.version>
+    <springdoc-openapi.version>1.3.0</springdoc-openapi.version>
+
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <scope>compile</scope>
+    </dependency>
+
+    <!-- Postgres -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- Lombok -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <!-- Exclude JUnit 4 from starter-test (and all other related test-starter, 
+        i.e those for security and project reactor -->
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- Jupiter API -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- Jupiter engine for surefire and failsafe -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Spring MockMvc with REST Assured API -->
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>spring-mock-mvc</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>json-schema-validator</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <!-- Flyway -->
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-core</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.flywaydb.flyway-test-extensions</groupId>
+      <artifactId>flyway-spring-test</artifactId>
+      <version>6.0.0</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Test-driven approach to generating API documentation (http://localhost:8080/docs/index.html) -->
+    <dependency>
+      <groupId>org.springframework.restdocs</groupId>
+      <artifactId>spring-restdocs-mockmvc</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- OpenAPI Documentation (http://localhost:8080/v3/api-docs.yaml) -->
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-webmvc-core</artifactId>
+      <version>${springdoc-openapi.version}</version>
+    </dependency>
+
+    <!-- SwaggerUI (http://localhost:8080/swagger-ui/index.html?url=/v3/api-docs) -->
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>${springdoc-openapi.version}</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-test-int-source</id>
+            <goals>
+              <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>src/test-int/java</source>
+              </sources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>add-test-int-resource</id>
+            <goals>
+              <goal>add-test-resource</goal>
+            </goals>
+            <configuration>
+              <resources>
+                <resource>
+                  <directory>src/test-int/resources</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- API Documentation -->
+      <plugin>
+        <groupId>org.asciidoctor</groupId>
+        <artifactId>asciidoctor-maven-plugin</artifactId>
+        <version>${asciidoctor.maven.plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.springframework.restdocs</groupId>
+            <artifactId>spring-restdocs-asciidoctor</artifactId>
+            <version>${spring-restdocs-asciidoctor.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctorj-diagram</artifactId>
+            <version>${asciidoctorj.diagram.version}</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <sourceDirectory>${project.basedir}/src/docs</sourceDirectory>
+          <outputDirectory>${project.build.directory}/generated-docs</outputDirectory>
+          <backend>html5</backend>
+          <attributes>
+            <data-uri />
+          </attributes>
+          <requires>
+            <require>asciidoctor-diagram</require>
+          </requires>
+        </configuration>
+        <executions>
+          <execution>
+            <id>generate-docs</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>process-asciidoc</goal>
+            </goals>
+            <configuration>
+              <backend>html</backend>
+              <doctype>book</doctype>
+              <attributes>
+                <!-- parameters used in the asciidoc templates -->
+                <project-version>${project.version}</project-version>
+                <snippets>${project.build.directory}/generated-snippets</snippets>
+              </attributes>
+              <sourceDirectory>${project.basedir}/src/docs</sourceDirectory>
+              <outputDirectory>${project.build.directory}/generated-docs</outputDirectory>
+              <sourceDocumentName>index.adoc</sourceDocumentName>
+              <logHandler>
+                <outputToConsole>true</outputToConsole>
+                <failIf>
+                  <severity>DEBUG</severity>
+                </failIf>
+              </logHandler>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+
+  </build>
+
+  <profiles>
+    <profile>
+      <id>it</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <configuration>
+              <includes>
+                <include>**/*IT</include>
+                <include>**/*ITCase</include>
+              </includes>
+            </configuration>
+            <executions>
+              <execution>
+                <!-- By default the failsafe plugin runs integration tests in the integration-test phase -->
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+</project>
