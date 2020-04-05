@@ -6,7 +6,6 @@ import java.util.Locale;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
-import com.example.demo.mapper.GreetingMapper;
 import com.example.demo.model.Greeting;
 import com.example.demo.service.GreetingService;
 
@@ -32,30 +31,33 @@ public class GreetingController {
   @Autowired
   GreetingService service;
 
+  @Autowired
+  ResourceMapper mapper;
+
   @GetMapping(value = "/greetings/{languageCode}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<GreetingModel> getGreeting(@PathVariable("languageCode") String language) {
+  public ResponseEntity<GreetingResource> getGreeting(@PathVariable("languageCode") String language) {
       Locale locale = Locale.forLanguageTag(language);
-      return ResponseEntity.ok(service.getGreeting(locale));
+      Greeting greeting = service.getGreeting(locale);
+      GreetingResource greetingResource = mapper.toResource(greeting);
+      return ResponseEntity.ok(greetingResource);
   }
 
   @GetMapping(value = "/greetings", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<GreetingModel>> getAllGreetings(
+  public ResponseEntity<List<GreetingResource>> getAllGreetings(
       @RequestParam(required = false, defaultValue = "0") Integer page,
       @Valid @Positive(message = "Page size should be a positive number")
       @RequestParam(required = false, defaultValue = "10") Integer size) {
       Page<Greeting> greetingEntities = service.getAllGreetings(PageRequest.of(page, size));
       HttpHeaders headers = new HttpHeaders();
       headers.add("X-Todos-Total", Long.toString(greetingEntities.getTotalElements()));
-      GreetingMapper mapper = new GreetingMapper();
-      List<GreetingModel> greetingModels = mapper.toModels(greetingEntities.getContent());
-      return new ResponseEntity<>(greetingModels, headers, HttpStatus.OK);
+      List<GreetingResource> greetingResources = mapper.toResources(greetingEntities.getContent());
+      return new ResponseEntity<>(greetingResources, headers, HttpStatus.OK);
   }
 
   @PostMapping(value = "/greetings", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<GreetingModel> postNewGreeting(@RequestBody @Valid GreetingModel greeting) {
-      GreetingMapper mapper = new GreetingMapper();
+  public ResponseEntity<GreetingResource> postNewGreeting(@RequestBody @Valid GreetingResource greeting) {
       Greeting savedGreeting = service.addGreeting(mapper.toEntity(greeting));
-      return ResponseEntity.ok(mapper.toModel(savedGreeting));
+      return ResponseEntity.ok(mapper.toResource(savedGreeting));
   }
   
 }

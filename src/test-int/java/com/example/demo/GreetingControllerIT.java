@@ -21,7 +21,7 @@ class GreetingControllerIT {
   WebApplicationContext webContext;
 
   @BeforeEach
-  public void initialiseRestAssured() {
+  public void setUp() {
     RestAssuredMockMvc.webAppContextSetup(webContext);
   }
 

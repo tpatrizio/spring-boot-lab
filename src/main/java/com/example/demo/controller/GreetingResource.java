@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
 import lombok.AllArgsConstructor;
-import lombok.Value;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Value
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
-public class GreetingModel {
+public class GreetingResource {
 
   Long id;
 

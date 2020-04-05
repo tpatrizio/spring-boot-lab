@@ -1,15 +1,11 @@
 package com.example.demo;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.hamcrest.Matchers.is;
-
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 import java.util.Locale;
 import java.util.Optional;
 
-import com.example.demo.mapper.GreetingMapper;
 import com.example.demo.model.Greeting;
 import com.example.demo.repository.GreetingRepository;
 import com.example.demo.service.GreetingService;

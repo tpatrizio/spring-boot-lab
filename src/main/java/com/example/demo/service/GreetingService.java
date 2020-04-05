@@ -2,8 +2,6 @@ package com.example.demo.service;
 
 import java.util.Locale;
 
-import com.example.demo.controller.GreetingModel;
-import com.example.demo.mapper.GreetingMapper;
 import com.example.demo.model.Greeting;
 import com.example.demo.repository.GreetingRepository;
 
@@ -22,10 +20,9 @@ public class GreetingService {
     return repository.findAll(pageable);
   }
   
-  public GreetingModel getGreeting(Locale locale) {
-    GreetingMapper mapper = new GreetingMapper();
+  public Greeting getGreeting(Locale locale) {
       return repository.findByLanguage(locale.getLanguage())
-        .map(mapper::toModel).orElseThrow(() -> new GreetingNotFoundException(locale.getDisplayLanguage()));
+          .orElseThrow(() -> new GreetingNotFoundException(locale.getDisplayLanguage()));
   }
 
   public Greeting addGreeting(Greeting greeting) {
