@@ -29,6 +29,7 @@ import java.util.Locale;
 
 import com.example.demo.controller.GreetingController;
 import com.example.demo.controller.ResourceMapperImpl;
+import com.example.demo.controller.errors.GlobalExceptionHandler;
 import com.example.demo.model.Greeting;
 import com.example.demo.service.GreetingNotFoundException;
 import com.example.demo.service.GreetingService;
@@ -55,7 +56,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 @WebMvcTest(GreetingController.class)
-@ContextConfiguration(classes = { GreetingController.class, ResourceMapperImpl.class })
+@ContextConfiguration(classes = { GreetingController.class, GlobalExceptionHandler.class, ResourceMapperImpl.class })
 @ExtendWith(RestDocumentationExtension.class)
 public class GreetingControllerTest {
 
@@ -116,33 +117,41 @@ public class GreetingControllerTest {
   }
 
   private ResponseFieldsSnippet apiError() {
-    return responseFields(fieldWithPath("status").description("The HTTP status of the request"),
-        fieldWithPath("timestamp").description("The timestamp of the error"),
-        fieldWithPath("path").description("The path of the requested resource"),
-        fieldWithPath("message").description("The error message"),
-        fieldWithPath("debug").description("A detailed description of the error").type(STRING).optional(),
-        fieldWithPath("errors").description("The list of errors if any").type(ARRAY).optional());
+    return responseFields(
+      fieldWithPath("status").description("The HTTP status of the request"),
+      fieldWithPath("timestamp").description("The timestamp of the error"),
+      fieldWithPath("path").description("The path of the requested resource"),
+      fieldWithPath("message").description("The error message"),
+      fieldWithPath("debug").description("A detailed description of the error").type(STRING).optional(),
+      fieldWithPath("errors").description("The list of errors if any").type(ARRAY).optional()
+    );
   }
 
   private ResponseFieldsSnippet greeting() {
-    return responseFields(fieldWithPath("id").description("The unique identifier of the greeting"),
+    return responseFields(
+        fieldWithPath("id").description("The unique identifier of the greeting"),
         fieldWithPath("language").description("The language of the greeting"),
-        fieldWithPath("message").description("The greeting message"));
+        fieldWithPath("message").description("The greeting message")
+    );
   }
 
   private ResponseFieldsSnippet greetingsCollection() {
     return responseFields(fieldWithPath("[].id").description("The unique identifier of the greeting"),
-        fieldWithPath("[].language").description("The language of the greeting"),
-        fieldWithPath("[].message").description("The greeting message").optional());
+      fieldWithPath("[].language").description("The language of the greeting"),
+      fieldWithPath("[].message").description("The greeting message").optional());
   }
 
   private RequestParametersSnippet pageParameters() {
-    return requestParameters(parameterWithName("page").description("The page to retrieve").optional(),
-        parameterWithName("size").description("The number of elements within a single page").optional());
+    return requestParameters(
+      parameterWithName("page").description("The page to retrieve").optional(),
+      parameterWithName("size").description("The number of elements within a single page").optional()
+    );
   }
 
   private ResponseHeadersSnippet pageHeaders() {
-    return responseHeaders(headerWithName("X-Todos-Total").description("The total amount of grretings"));
+    return responseHeaders(
+      headerWithName("X-Todos-Total").description("The total amount of grretings")
+    );
   }
 
 }
