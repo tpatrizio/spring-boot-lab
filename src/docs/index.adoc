@@ -59,7 +59,7 @@ use of HTTP status codes.
 
 [[examples]]
 == Examples
-include::get-for-known-language-should-return-greeting/httpie-request.adoc[]
+include::{snippets}/get-with-known-language-should-return-greeting/httpie-request.adoc[]
 
 [plantuml]
 ....
