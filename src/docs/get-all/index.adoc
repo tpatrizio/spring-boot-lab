@@ -1,0 +1,4 @@
+[[greetings_get_all]]
+=== Get all greetings
+
+include::success.adoc[]

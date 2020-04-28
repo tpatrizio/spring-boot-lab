@@ -1,0 +1,23 @@
+[[greetings_get_one_success]]
+==== Successful call
+When making a successfull call to this API endpoint, the following request parameters and body can be expected.
+
+[[greetings_get_one_success_request]]
+===== Request
+include::{snippets}/get-with-known-language-should-return-greeting/http-request.adoc[]
+
+[[greetings_get_one_success_path_parameters]]
+====== Request parameters
+include::{snippets}/get-with-known-language-should-return-greeting/path-parameters.adoc[]
+
+[[greetings_get_one_success_response]]
+===== Response
+include::{snippets}/get-with-known-language-should-return-greeting/http-response.adoc[]
+
+[[greetings_get_one_success_response_body]]
+====== Response body
+include::{snippets}/get-with-known-language-should-return-greeting/response-fields.adoc[]
+
+[[greetings_get_one_success_curl]]
+===== cURL
+include::{snippets}/get-with-known-language-should-return-greeting/curl-request.adoc[]

@@ -1,4 +1,4 @@
-= RESTful Todo API Specification
+= RESTful Greetings API Specification
 {project-version}
 :sectnums:
 :sectnumlevels: 5
@@ -12,11 +12,29 @@
 [[overview]]
 = Overview
 
+RESTful service to provide greets in different languages 
+
+== Context Diagram
+
+A Context diagram shows the relationship between the system that you're building and other actors, including humans and non-human systems, such as external systems.
+
+[plantuml]
+....
+!include <c4/C4_Context.puml>
+left to right direction
+
+Person(client, "Client")
+System_Boundary(portal, "Customer Portal") {
+  System(greeting, "Greetings", "Customer greetings service")
+}
+Rel(client, portal, "Access")
+
+....
+
 [[overview-http-verbs]]
 == HTTP verbs
 
-RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its
-use of HTTP verbs.
+RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its use of HTTP verbs.
 
 |===
 | Verb | Usage
@@ -34,8 +52,7 @@ use of HTTP verbs.
 | Used to delete an existing resource
 |===
 
-RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its
-use of HTTP status codes.
+RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its use of HTTP status codes.
 
 |===
 | Status code | Usage
@@ -57,16 +74,49 @@ use of HTTP status codes.
 | The requested resource did not exist
 |===
 
-[[examples]]
-== Examples
-include::{snippets}/get-with-known-language-should-return-greeting/httpie-request.adoc[]
+[[overview-sequence-diagrams]]
+== Sequence Diagrams
+
+A sequence diagram would be a perfect tool to visualize and describe the flow of the process to develop the code. In this section, we will go through the sequence diagrams for each functionality.
+
+This diagram will be very helpful during the development process as it sets the goal of what we are going to develop for those functionalities. With this clear end goal laid out, we can quickly and easily continue with the development and testing of the robust API.
+
+=== Get Greeting Sequence Diagrams
+What we have here is the sequence diagram for the get greeting functionality. This flow starts with the request that comes with the language code to retrieve the greeting for.
+
+As in other sequences, the controller receives the request and retrieves the greeting details through the service and repository from the database.
 
 [plantuml]
 ....
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+skinparam monochrome false
+skinparam shadowing false
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+hide footbox
+autonumber
+
+participant "Client" as CLNT order 10
+participant "GreetingController" as CTRL order 20
+participant "GreetingService" as SVC order 30
+participant "GreetingRepository" as REPO order 40
+
+CLNT -> CTRL: GET /greetings/:languageCode
+activate CTRL
+CTRL -> SVC: getGreeting()
+activate SVC
+SVC -> REPO: findByLanguage()
+activate REPO
+REPO --> SVC: The fetched greeting
+deactivate REPO
+SVC --> CTRL: The fetched greeting
+deactivate SVC
+CTRL --> CLNT: The requested greeting
+deactivate CTRL
 ....
+
+[[examples]]
+== Examples
+include::get-all/index.adoc[]
+include::get-one/index.adoc[]
+
+
 

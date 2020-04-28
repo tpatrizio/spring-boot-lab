@@ -1,0 +1,5 @@
+[[greetings_get_one]]
+=== Get one greeting
+
+include::success.adoc[]
+include::not-found.adoc[]

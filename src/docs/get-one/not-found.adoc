@@ -1,0 +1,21 @@
+[[greetings_get_one_not_found]]
+==== Greeting not found
+When a greeting in the given language code isn't found, a **404 Not Found** is provided, with a different response containing an error message.
+
+[[greetings_get_one_not_found_request]]
+===== Request
+The structure of the request is similar to a successful call (see <<greetings_get_one_success_request>>), but using a language code that is not known:
+
+include::{snippets}/get-with-unknown-language-should-return-not-found/http-request.adoc[]
+
+[[greetings_get_one_not_found_response]]
+===== Response
+include::{snippets}/get-with-unknown-language-should-return-not-found/http-response.adoc[]
+
+[[greetings_get_one_not_found_response_body]]
+====== Response body
+include::{snippets}/get-with-unknown-language-should-return-not-found/response-fields.adoc[]
+
+[[greetings_get_one_not_found_curl]]
+===== cURL
+include::{snippets}/get-with-unknown-language-should-return-not-found/curl-request.adoc[]

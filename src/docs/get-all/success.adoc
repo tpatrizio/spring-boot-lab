@@ -1,0 +1,31 @@
+[[greetings_get_all_success]]
+==== Successful call
+When making a successfull call to this API endpoint, the following request parameters and body can be expected.
+
+[[greetings_get_all_success_request]]
+===== Request
+include::{snippets}/get-all-should-return-list-of-greetings/httpie-request.adoc[]
+
+[[greetings_get_all_success_request_parameters]]
+====== Request parameters
+include::{snippets}/get-all-should-return-list-of-greetings/request-parameters.adoc[]
+
+[[greetings_get_all_success_response]]
+===== Response
+include::{snippets}/get-all-should-return-list-of-greetings/http-response.adoc[]
+
+[[greetings_get_all_success_response_headers]]
+====== Response headers
+include::{snippets}/get-all-should-return-list-of-greetings/response-headers.adoc[]
+
+[[greetings_get_all_success_response_body]]
+====== Response body
+include::{snippets}/get-all-should-return-list-of-greetings/response-fields.adoc[]
+
+[[greetings_get_all_success_curl]]
+===== cURL
+include::{snippets}/get-all-should-return-list-of-greetings/curl-request.adoc[]
+
+[[greetings_get_all_success_httpie]]
+===== HTTPie
+include::{snippets}/get-all-should-return-list-of-greetings/httpie-request.adoc[]
